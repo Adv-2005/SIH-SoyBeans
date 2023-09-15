@@ -18,6 +18,7 @@ This is a simple website with a scrolling title bar, a menu with buttons, and a 
 - Live map showing businesses with the name "e waste."
 - Ability to get the user's live location.
 - Informative stuff about E-Waste
+- Adding Info panel
 
 ## Prerequisites
 
