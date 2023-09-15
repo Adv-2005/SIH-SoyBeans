@@ -1,85 +1,104 @@
-body{
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        background-color: rgb(255, 255, 255);
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 100%;
 }
-.navbar{ 
-    height: 60px;
-    background-color: #0f1111;
-    color: white;
-   display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    }
+
+.navbar {
+  height: 60px;
+  background-color: #0f1111;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
 
 .title-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: black;
-    color: white;
-    padding: 10px 0;
-    transition: top 0.3s;
-    z-index: 1000;
-    text-align: center;
-    justify-content: space-evenly;
-    padding: 0px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 10px 0;
+  transition: top 0.3s;
+  z-index: 1000;
+  text-align: center;
+  justify-content: space-evenly;
+  padding: 0px;
+  font-size: 1.25vmax;
 }
-.content{
-    font-size: 100px;
+
+.content {
+  font-size: 100px;
 }
+
 #map-container {
-    text-align: center;
-    margin-top: 50px; /* Adjust as needed to position the map */
+  text-align: center;
+  margin-top: 50px;
+  /* Adjust as needed to position the map */
+  display: flex;
+  justify-content: space-evenly;
+}
 
-    display: flex;
-    justify-content: space-evenly;
+#location {
+  background-color: black;
+  color: white;
+  border-radius: 30%;
+  height: 100pxpx;
+  width: 100px;
 }
-#location{
-    background-color: black;
-    color: white;
-    border-radius: 30%;
-    height: 100pxpx;
-    width: 100px;
 
+#button {
+  margin-left: 350px;
+}
 
+.text-content {
+  padding-top: 125px;
 }
-#button{
-        margin-left: 350px;
-}
-.text-content{
-    padding-top: 125px;
-}
+
 .card {
-    width: 400px;
-    border: 2px solid black;
-    border-radius: 25px;
-    padding: 10px;
-    margin: 10px;
-  }
-  
-  img {
-    width: 100%;
-    border-radius: 25px;
-  }
-  
-  h2 {
-    color: #d56f3e;
-  }
-  
-  span {
-    color: #9d6f24;
-  }
-  
-  h4 {
-    text-align: right;
-    color: #3c787e;
-  }
-  
-  #pets {
-    display: flex;
-    justify-content: space-evenly;
-  }
-  
+  width: 400px;
+  border: 2px solid black;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 10px;
+}
+
+img {
+  width: 100%;
+  border-radius: 25px;
+}
+
+h2 {
+  color: #d56f3e;
+}
+
+span {
+  color: #9d6f24;
+}
+
+h4 {
+  text-align: right;
+  color: #3c787e;
+}
+
+#pets {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.pop-up {
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
