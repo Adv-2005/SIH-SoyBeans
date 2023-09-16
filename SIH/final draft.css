@@ -109,9 +109,9 @@ h4 {
 }
 .pop-up button{
   height: 70px;
-  width: 70px;
-  border-radius: 50%;
-  background-color: blue;
+  width: 90px;
+  border-radius: 25%;
+  background-color: black;
   color: white;
 }
 
