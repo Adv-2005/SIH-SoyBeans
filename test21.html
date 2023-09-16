@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>E-Waste Locations Finder</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 60%;
+            float: left;
+        }
+        #location-details {
+            width: 40%;
+            float: left;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>E-Waste Locations Finder</h1>
+    <div>
+        <label for="location">Your Location: </label>
+        <input type="text" id="location">
+        <button onclick="searchEwasteLocations()">Search</button>
+    </div>
+    <div id="map"></div>
+    <div id="location-details"></div>
+    <script>
+        let map;
+        let locationDetailsElement;
+        let placesService; // Initialize the placesService
+        const markers = [];
+
+        // Initialize the map
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 0, lng: 0 }, // Default center
+                zoom: 15, // You can adjust the initial zoom level
+            });
+
+            // Get a reference to the location details div
+            locationDetailsElement = document.getElementById("location-details");
+            placesService = new google.maps.places.PlacesService(map); // Initialize placesService
+        }
+
+        // Function to search for E-Waste locations
+        function searchEwasteLocations() {
+            const locationInput = document.getElementById("location").value;
+
+            // Use Google's Geocoding API to get user coordinates
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address: locationInput }, (results, status) => {
+                if (status === "OK" && results[0]) {
+                    const userLocation = results[0].geometry.location;
+
+                    // Define the request object inside this function
+                    const request = {
+                        location: userLocation,
+                        radius: 5000, // 5km radius
+                        keyword: "e waste",
+                    };
+
+                    // Perform the nearby search
+                    placesService.nearbySearch(request, (results, status) => {
+                        if (status === google.maps.places.PlacesServiceStatus.OK) {
+                            // Clear previous markers and location details
+                            clearMarkers();
+                            clearLocationDetails();
+
+                            // Create markers for each result and attach click event listeners
+                            for (const place of results) {
+                                const marker = createMarker(place);
+                                attachMarkerClickListener(marker, place);
+                            }
+                        }
+                    });
+
+                    // Center the map on the user's location
+                    map.setCenter(userLocation);
+                } else {
+                    alert("Location not found. Please try again.");
+                }
+            });
+        }
+
+        // Create a marker for a place and return the marker
+        function createMarker(place) {
+            const marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location,
+                title: place.name,
+            });
+            markers.push(marker);
+            return marker;
+        }
+
+        // Attach a click event listener to a marker to display location details
+        function attachMarkerClickListener(marker, place) {
+            marker.addListener("click", () => {
+                displayLocationDetails(place);
+            });
+        }
+
+        // Display location details in the side div
+        function displayLocationDetails(place) {
+            const detailsHTML = `
+                <h2>${place.name}</h2>
+                <p><strong>Address:</strong> ${place.vicinity}</p>
+                <p><strong>Rating:</strong> ${place.rating || "N/A"}</p>
+            `;
+
+            locationDetailsElement.innerHTML = detailsHTML;
+        }
+
+        // Clear location details
+        function clearLocationDetails() {
+            locationDetailsElement.innerHTML = "";
+        }
+
+        // Clear all markers from the map
+        function clearMarkers() {
+            for (const marker of markers) {
+                marker.setMap(null);
+            }
+            markers.length = 0;
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=SUCKMYDICK&libraries=places&callback=initMap"></script>
+</body>
+</html>
+
+
