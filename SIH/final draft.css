@@ -91,14 +91,27 @@ h4 {
   justify-content: space-evenly;
 }
 
+.info{
+  display: flex;
+  flex-direction: row-reverse
+
+}
 .pop-up {
-  border: none;
+  position: fixed;
   color: black;
-  padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+
 }
+.pop-up button{
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background-color: blue;
+  color: white;
+}
+
