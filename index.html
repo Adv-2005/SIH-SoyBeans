@@ -1,3 +1,171 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Add some style for the map div */
+    #map {
+      height: 400px;
+      width: 600px;
+    }
+    /* Add some style for the search box */
+    #pac-input {
+      width: 400px;
+    }
+    /* Style for the marker details container */
+    #marker-details {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Find the nearest e-waste facilities</h1>
+  <!-- Add an input element for the search box -->
+  <input id="pac-input" type="text" placeholder="Enter a location">
+  <div id="map"></div>
+  <!-- Add a container for marker details -->
+  <div id="marker-details">
+    <h2>Place Details:</h2>
+    <p><strong>Name:</strong> <span id="place-name"></span></p>
+    <p><strong>Address:</strong> <span id="place-address"></span></p>
+    <p><strong>Rating:</strong> <span id="place-rating"></span></p>
+  </div>
+  <script>
+    var map;
+    var userMarker;
+    var service;
+    var infowindow;
+    var markers = [];
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 8,
+      });
+      navigator.geolocation.getCurrentPosition(showPosition);
+      infowindow = new google.maps.InfoWindow();
+      var input = document.getElementById("pac-input");
+      var searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+      map.addListener("bounds_changed", function () {
+        searchBox.setBounds(map.getBounds());
+      });
+
+      searchBox.addListener("places_changed", function () {
+        var places = searchBox.getPlaces();
+        if (places.length == 0) {
+          return;
+        }
+        markers.forEach(function (marker) {
+          marker.setMap(null);
+        });
+        markers = [];
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function (place) {
+          if (!place.geometry || !place.geometry.location) {
+            console.log("Returned place contains no geometry");
+            return;
+          }
+          var icon = {
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25),
+          };
+          var marker = new google.maps.Marker({
+            map: map,
+            icon: icon,
+            title: place.name,
+            position: place.geometry.location,
+          });
+          markers.push(marker);
+          marker.addListener("click", function () {
+            showInfoWindow(place);
+          });
+          if (place.geometry.viewport) {
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
+        });
+        map.fitBounds(bounds);
+
+        // After displaying new search results, perform a nearby search for e-waste facilities
+        if (map.getCenter()) {
+          performNearbySearch(map.getCenter());
+        }
+      });
+    }
+
+    function showPosition(position) {
+      var userLat = position.coords.latitude;
+      var userLng = position.coords.longitude;
+      var userLatLng = new google.maps.LatLng(userLat, userLng);
+      userMarker = new google.maps.Marker({
+        position: userLatLng,
+        map: map,
+        title: "Your location",
+      });
+      map.setCenter(userLatLng);
+      service = new google.maps.places.PlacesService(map);
+      performNearbySearch(userLatLng);
+    }
+
+    function performNearbySearch(location) {
+      service.nearbySearch(
+        {
+          location: location,
+          radius: 10000,
+          keyword: "e-waste recycling",
+        },
+        showResults
+      );
+    }
+
+    function showResults(results, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          createMarker(results[i]);
+        }
+      }
+    }
+
+    function createMarker(place) {
+      var icon = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25),
+      };
+      var marker = new google.maps.Marker({
+        map: map,
+        icon: icon,
+        title: place.name,
+        position: place.geometry.location,
+      });
+      marker.addListener("click", function () {
+        showInfoWindow(place);
+      });
+      markers.push(marker);
+    }
+
+    function showInfoWindow(place) {
+      document.getElementById("place-name").textContent = place.name;
+      document.getElementById("place-address").textContent = place.vicinity;
+      document.getElementById("place-rating").textContent = place.rating || "N/A";
+      infowindow.setContent(place.name);
+      infowindow.open(map, this);
+    }
+  </script>
+  <!-- Load the Maps JavaScript API and the Places Library with your API key -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUSjyXVreEY8nPddxSg9s4fHUyyEbiMA0&callback=initMap&libraries=places"
+  ></script>
+</body>
+</html>
+=======
 <html>
 <head>
   <style>
@@ -92,3 +260,4 @@
   ></script>
 </body>
 </html>
+>>>>>>> 5756fe5fa0387fac7c9bba690a4ed4dccf90f547
