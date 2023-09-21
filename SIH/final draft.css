@@ -29,9 +29,7 @@ text-align: center;
 justify-content: space-evenly;
 padding: 0px;
 }
-.content{
-font-size: 100px;
-}
+
 .main{
 height: 640px;
 display: flex;
@@ -47,6 +45,7 @@ text-align: center;
 flex: 1;
 
 display: flex;
+flex-direction: column;
 justify-content: space-evenly;
 }
 #map-iframe{
@@ -101,6 +100,7 @@ display: flex;
 flex-direction: column;
 justify-content: space-between;
 flex: 1;
+
 }
 .map button{
 margin-top: 5px;
@@ -126,3 +126,21 @@ border: 2px solid black;
 }
 
 
+#map {
+height: 500px;
+width: 100% ;
+}
+/* Add some style for the search box */
+#pac-input {
+width: 400px;
+border-radius: 10px ;
+margin-left: 50%;
+padding: 10px;
+margin-top: 12px;
+}
+/* Style for the marker details container */
+#marker-details {
+margin-top: 10px;
+
+border: none;
+}
